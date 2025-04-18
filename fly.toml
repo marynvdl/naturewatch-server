@@ -5,8 +5,9 @@ primary_region = "ams"
 dockerfile = "Dockerfile"  #
 
 [env]
-GEOSERVER_ADMIN_PASSWORD = "admin"
 GEOSERVER_DATA_DIR = "/opt/geoserver_data"
+GEOSERVER_CSRF_WHITELIST = "geoserver-app.fly.dev"
+PROXY_BASE_URL = "https://geoserver-app.fly.dev/geoserver"
 
 
 [http_service]
