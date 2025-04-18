@@ -7,7 +7,7 @@ dockerfile = "Dockerfile"  #
 [env]
 GEOSERVER_ADMIN_PASSWORD = "admin"
 GEOSERVER_DATA_DIR = "/opt/geoserver_data"
-JAVA_OPTS = "-Xms512m -Xmx1024m"
+
 
 [http_service]
 internal_port = 8080
@@ -21,3 +21,7 @@ processes = ["app"]
 memory = "4gb"
 cpu_kind = "performance"
 cpus = 1
+
+[mounts]
+source = "geoserver_data"
+destination = "/opt/geoserver_data"
