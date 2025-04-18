@@ -28,11 +28,10 @@ jobs:
       - name: Upload to Fly volume via SFTP
         run: |
           sudo apt-get install -y sshpass
+          mkdir -p ~/.ssh
+          flyctl ssh sftp shell -a geoserver-app --command "mkdir -p /opt/geoserver_data/raster"
           for file in raster_data/*.tif; do
-            flyctl ssh sftp shell -a geoserver-app <<EOF
-mkdir -p /opt/geoserver_data/raster
-put $file /opt/geoserver_data/raster/
-EOF
+            flyctl ssh sftp put "$file" /opt/geoserver_data/raster/ -a geoserver-app
           done
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
