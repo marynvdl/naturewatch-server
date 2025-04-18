@@ -2,7 +2,7 @@ app = "geoserver-app"
 primary_region = "ams"
 
 [build]
-dockerfile = "Dockerfile"  # 👈 Add this if not present
+dockerfile = "Dockerfile"  #
 
 [env]
 GEOSERVER_ADMIN_PASSWORD = "admin"
@@ -20,7 +20,3 @@ processes = ["app"]
 memory = "1gb"
 cpu_kind = "shared"
 cpus = 1
-
-[mounts]
-source = "geoserver_data"
-destination = "/opt/geoserver_data"
