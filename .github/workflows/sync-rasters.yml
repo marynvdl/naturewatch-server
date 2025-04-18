@@ -29,7 +29,7 @@ jobs:
         run: |
           sudo apt-get install -y sshpass
           mkdir -p ~/.ssh
-          flyctl ssh sftp shell -a geoserver-app --command "mkdir -p /opt/geoserver_data/raster"
+          flyctl ssh sftp shell -app geoserver-app --command "mkdir -p /opt/geoserver_data/raster"
           for file in raster_data/*.tif; do
             flyctl ssh sftp put "$file" /opt/geoserver_data/raster/ -a geoserver-app
           done
