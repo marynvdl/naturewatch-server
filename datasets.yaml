@@ -1,0 +1,5 @@
+datasets:
+  - source: gs://nature-watch-bucket/COGS/built/2023
+    files:
+      - built2023_0.tif
+      - built2023_1.tif
