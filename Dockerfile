@@ -1,2 +1,2 @@
 # Use the official GeoServer image
-FROM kartoza/geoserver:latest
+FROM docker.osgeo.org/geoserver:2.28.x
