@@ -24,11 +24,16 @@ jobs:
         run: |
           mkdir -p raster_data
           python scripts/fetch_datasets.py datasets.yaml raster_data
-
+          
       - name: Upload to Fly volume via SFTP
         run: |
-          flyctl ssh sftp upload raster_data/ /opt/geoserver_data/raster/
+          sudo apt-get install -y sshpass
+          flyctl ssh sftp shell -a geoserver-app <<EOF
+          mkdir /opt/geoserver_data/raster
+          put raster_data/* /opt/geoserver_data/raster/
+          EOF
         env:
-          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+            FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+        
 
 
