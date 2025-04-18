@@ -15,7 +15,7 @@ jobs:
 
       - name: Install gsutil
         run: |
-          sudo apt-get update && sudo apt-get install -y google-cloud-sdk
+          sudo apt-get update && sudo apt-get install -y google-cloud-cli
 
       - name: Parse datasets and copy to local
         run: |
