@@ -25,13 +25,20 @@ jobs:
           mkdir -p raster_data
           python scripts/fetch_datasets.py datasets.yaml raster_data
 
-      - name: Upload to Fly volume via SFTP
+      - name: Upload to Fly volume using scp
         run: |
-          sudo apt-get install -y sshpass
-          mkdir -p ~/.ssh
-          flyctl ssh sftp shell --app geoserver-app --command "mkdir -p /opt/geoserver_data/raster"
+          sudo apt-get install -y openssh-client sshpass
+          
+          # Start SSH session and get IP address of the VM
+          export FLY_IP=$(flyctl ips private --app geoserver-app | head -n 1)
+          echo "Fly private IP is $FLY_IP"
+
+          # Upload each TIFF file using scp and flyctl tunnel
           for file in raster_data/*.tif; do
-            flyctl ssh sftp put "$file" /opt/geoserver_data/raster/ -a geoserver-app
+            echo "Uploading $file..."
+            flyctl ssh console --app geoserver-app --command "mkdir -p /opt/geoserver_data/raster"
+            flyctl ssh scp "$file" root@geoserver-app.internal:/opt/geoserver_data/raster/
           done
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+
